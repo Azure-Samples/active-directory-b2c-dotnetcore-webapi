@@ -15,7 +15,12 @@ namespace B2CWebApi.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            var scopes = HttpContext.User.FindFirst("http://schemas.microsoft.com/identity/claims/scope")?.Value;
+            if (!string.IsNullOrEmpty(Startup.ScopeRead) && scopes != null 
+                    && scopes.Split(' ').Any(s => s.Equals(Startup.ScopeRead)))
+                return new string[] { "value1", "value2" };
+            else 
+                throw new Exception("Unauthorized");
         }
 
         // GET api/values/5
