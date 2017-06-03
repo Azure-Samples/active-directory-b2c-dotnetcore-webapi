@@ -1,0 +1,17 @@
+<html>
+<headAzure AD B2C API Sample></head>
+<body>
+Your API will now be available via http://localhost:5000/api/Values
+
+Obtain a token by signing in <a href="https://login.microsoftonline.com/fabrikamb2c.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_SUSI&client_id=9595a991-a717-4669-9af0-d58420ad733a&nonce=defaultNonce&redirect_uri=https%3A%2F%2Fjwtinspect.azurewebsites.net&scope=https%3A%2F%2Ffabrikamb2c.onmicrosoft.com%2Fdemoapi%2Fdemo.read&response_type=token&prompt=login" target="_blank">here.</a>
+<br/>
+<br/>
+Try it out via curl using the comand below.
+Make sure your replace [TOKEN] with the token obtained from the link above.
+<br/>
+<i>curl http://localhost:5000/api/Values -i --header "Authorization: Bearer <b>[TOKEN]</b>"</i>
+<br/>
+<br/>
+Note: Port will vary depending on whether you run via Visual Studio or <i>"dotnet run"</i> (port 5000)
+</body>
+</html>

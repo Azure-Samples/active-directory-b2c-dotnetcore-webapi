@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -45,31 +46,32 @@ namespace B2CWebApi
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            var jbo = new JwtBearerOptions
-            {
-                Authority = string.Format(Configuration["Authentication:AzureAd:AADInstance"], Configuration["Authentication:AzureAd:Tenant"], Configuration["Authentication:AzureAd:Policy"]),
-                Audience = Configuration["Authentication:AzureAd:ClientId"]
-            };
-
-            jbo.Events = new JwtBearerEvents
-            {
-                OnAuthenticationFailed = authFailed
-            };
-            app.UseJwtBearerAuthentication(jbo);
-            /*
             app.UseJwtBearerAuthentication(new JwtBearerOptions
             {
-                Authority = string.Format(Configuration["Authentication:AzureAd:AADInstance"], Configuration["Authentication:AzureAd:Tenant"], Configuration["Authentication:AzureAd:Policy"]),
-                Audience = Configuration["Authentication:AzureAd:ClientId"]                
+                Authority = string.Format("https://login.microsoftonline.com/tfp/{0}/{1}/v2.0/", 
+                    Configuration["Authentication:AzureAd:Tenant"], Configuration["Authentication:AzureAd:Policy"]),
+                Audience = Configuration["Authentication:AzureAd:ClientId"],
+                Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = AuthenticationFailed
+                }            
             });
-            */
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
 
-        private Task authFailed(AuthenticationFailedContext arg)
+        private Task AuthenticationFailed(AuthenticationFailedContext arg)
         {
-            throw new NotImplementedException();
+            // For debugging purposes only!
+            var s = $"AuthenticationFailed: {arg.Exception.Message}";
+            arg.Response.ContentLength = s.Length;
+            arg.Response.Body.Write(Encoding.UTF8.GetBytes(s), 0, s.Length);
+            return Task.FromResult(0);
         }
     }
 }
