@@ -63,6 +63,9 @@ Clean the solution, rebuild the solution, and run it. You can now sign up & sign
 
 ## About the code
 
+Here there's a quick guide to the most interesting authentication related bits of the sample.
+
+### Token validation
 As it is standard practice for ASP.NET Core Web APIs, the token validation functionality is implemented with the JWT Bearer middleware. Here there's a relevant snippet from the middleware initialization:  
 
 ```csharp
@@ -80,3 +83,18 @@ As it is standard practice for ASP.NET Core Web APIs, the token validation funct
 Important things to notice:
 - The Authority points is constructed using the **tfp** path, the tenant name and the policy.
 - The OnAuthenticationFailed notification is to print better error messages if you have issues configuring this sample. You should not use this handler in production.
+
+### Scope validation
+Optionally, you can enforce more granular access control via **scopes**.
+
+You can access codes via:
+
+```csharp
+  var scopes = HttpContext.User.FindFirst("http://schemas.microsoft.com/identity/claims/scope")?.Value;
+  if (scopes != null && scopes.Split(' ').Any(s => s.Equals(TheScope)))
+      // Do stuff
+  else 
+      // Unauthorized
+```
+
+Scopes are space delimited, so use a string split and check that the scope you are want is present via a .Equals. Beware of using .Contains as that will cause issues if you have two scopes like: `read` and `denyread`. Contains on read will also match denyread.
