@@ -13,42 +13,65 @@ namespace B2CWebApi.Controllers
     {
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
             var scopes = HttpContext.User.FindFirst("http://schemas.microsoft.com/identity/claims/scope")?.Value;
-            if (!string.IsNullOrEmpty(Startup.ScopeRead) && scopes != null 
+            if (!string.IsNullOrEmpty(Startup.ScopeRead) && scopes != null
                     && scopes.Split(' ').Any(s => s.Equals(Startup.ScopeRead)))
-                return new string[] { "value1", "value2" };
-            else 
-                throw new Exception("Unauthorized");
+                return Ok(new string[] { "value1", "value2" });
+            else
+                return Unauthorized();
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var scopes = HttpContext.User.FindFirst("http://schemas.microsoft.com/identity/claims/scope")?.Value;
+            if (!string.IsNullOrEmpty(Startup.ScopeRead) && scopes != null
+                    && scopes.Split(' ').Any(s => s.Equals(Startup.ScopeRead)))
+                return Ok("value1");
+            else
+                return Unauthorized();
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]string value)
         {
-            // For more information on protecting this API from Cross Site Request Forgery (CSRF) attacks, see https://go.microsoft.com/fwlink/?LinkID=717803
+            var scopes = HttpContext.User.FindFirst("http://schemas.microsoft.com/identity/claims/scope")?.Value;
+            if (!string.IsNullOrEmpty(Startup.ScopeWrite) && scopes != null
+                    && scopes.Split(' ').Any(s => s.Equals(Startup.ScopeWrite)))
+                // TODO: Post
+                return Ok();
+            else
+                return Unauthorized();
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]string value)
         {
-            // For more information on protecting this API from Cross Site Request Forgery (CSRF) attacks, see https://go.microsoft.com/fwlink/?LinkID=717803
+            var scopes = HttpContext.User.FindFirst("http://schemas.microsoft.com/identity/claims/scope")?.Value;
+            if (!string.IsNullOrEmpty(Startup.ScopeWrite) && scopes != null
+                    && scopes.Split(' ').Any(s => s.Equals(Startup.ScopeWrite)))
+                // TODO: Put
+                return Ok();
+            else
+                return Unauthorized();
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            // For more information on protecting this API from Cross Site Request Forgery (CSRF) attacks, see https://go.microsoft.com/fwlink/?LinkID=717803
+            var scopes = HttpContext.User.FindFirst("http://schemas.microsoft.com/identity/claims/scope")?.Value;
+            if (!string.IsNullOrEmpty(Startup.ScopeWrite) && scopes != null
+                    && scopes.Split(' ').Any(s => s.Equals(Startup.ScopeWrite)))
+                // TODO: Delete
+                return Ok();
+            else
+                return Unauthorized();
         }
     }
 }
