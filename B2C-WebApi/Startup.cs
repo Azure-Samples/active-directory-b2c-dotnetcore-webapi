@@ -14,6 +14,9 @@ namespace B2CWebApi
 {
     public class Startup
     {
+        public static string ScopeRead;
+        public static string ScopeWrite;
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -56,6 +59,9 @@ namespace B2CWebApi
                     OnAuthenticationFailed = AuthenticationFailed
                 }            
             });
+
+            ScopeRead = Configuration["Authentication:AzureAd:ScopeRead"];
+            ScopeWrite = Configuration["Authentication:AzureAd:ScopeWrite"];
 
             app.UseMvc(routes =>
             {
