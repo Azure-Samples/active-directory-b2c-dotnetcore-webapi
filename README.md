@@ -1,7 +1,7 @@
 ---
 services: active-directory-b2c
 platforms: dotnet
-author: gsacavdm
+author: dstrockis
 ---
 
 # An ASP.NET Core web API with Azure AD B2C 
