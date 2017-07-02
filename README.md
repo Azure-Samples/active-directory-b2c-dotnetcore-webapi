@@ -22,7 +22,7 @@ Getting started is simple! To run this sample you will need:
 From your shell or command line:
 
 ```powershell
-git clone https://github.com/Azure-Samples/active-directory-b2c-dotnet-webapi.git
+git clone https://github.com/Azure-Samples/active-directory-b2c-dotnetcore-webapi.git
 ```
 
 ### [OPTIONAL] Step 2: Get your own Azure AD B2C tenant
