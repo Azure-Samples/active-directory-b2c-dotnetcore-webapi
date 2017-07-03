@@ -54,7 +54,7 @@ Your web API registration should include the following information:
 1. Open the solution in Visual Studio.
 1. Open the `appsettings.json` file.
 1. Find the assignment for `Tenant` and replace the value with your tenant name.
-1. Find the assignment for `ClientID` and replace the value with the Application ID from Step 2.
+1. Find the assignment for `ClientID` and replace the value with the Application ID from Step 4.
 1. Find the assignment for `Policy` and replace the value with the name of the policy from Step 3.
 
 ### Step 6: Run the sample
