@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -39,6 +36,18 @@ namespace B2CWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication()
+                .AddJwtBearer(option => new JwtBearerOptions
+                {
+                    Authority = string.Format("https://login.microsoftonline.com/tfp/{0}/{1}/v2.0/",
+                    Configuration["Authentication:AzureAd:Tenant"], Configuration["Authentication:AzureAd:Policy"]),
+                    Audience = Configuration["Authentication:AzureAd:ClientId"],
+                    Events = new JwtBearerEvents
+                    {
+                        OnAuthenticationFailed = AuthenticationFailed
+                    }
+                });
+
             // Add framework services.
             services.AddMvc();
         }
@@ -48,17 +57,6 @@ namespace B2CWebApi
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            app.UseJwtBearerAuthentication(new JwtBearerOptions
-            {
-                Authority = string.Format("https://login.microsoftonline.com/tfp/{0}/{1}/v2.0/", 
-                    Configuration["Authentication:AzureAd:Tenant"], Configuration["Authentication:AzureAd:Policy"]),
-                Audience = Configuration["Authentication:AzureAd:ClientId"],
-                Events = new JwtBearerEvents
-                {
-                    OnAuthenticationFailed = AuthenticationFailed
-                }            
-            });
 
             ScopeRead = Configuration["Authentication:AzureAd:ScopeRead"];
             ScopeWrite = Configuration["Authentication:AzureAd:ScopeWrite"];
