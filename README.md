@@ -9,6 +9,10 @@ This sample shows how to build a web API with Azure AD B2C using the ASP.Net Cor
 
 The app is a simple web API that exposes standard CRUD operations via /api/Values through standard GET, PUT, POST and  DELETE.
 
+
+## IMPORTANT NOTE
+For the DotNet Core 2.0 version of this sample, check out the [dotnetcore2.0 branch](https://github.com/Azure-Samples/active-directory-b2c-dotnetcore-webapi/tree/dotnetcore2.0).
+
 ## How To Run This Sample
 
 Getting started is simple! To run this sample you will need:
