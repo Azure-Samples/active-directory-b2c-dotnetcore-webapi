@@ -16,7 +16,7 @@ For the DotNet Core 2.0 version of this sample, check out the [dotnetcore2.0 bra
 
 Getting started is simple! To run this sample you will need:
 
-- To install .NET Core for Windows by following the instructions at [dot.net/core](http://dot.net/core), which will include Visual Studio 2017.
+- To install .NET Core 2.0 for Windows by following the instructions at [dot.net/core](http://dot.net/core), which will include Visual Studio 2017.
 - An Internet connection
 - An Azure subscription (a free trial is sufficient)
 
@@ -72,15 +72,18 @@ Here there's a quick guide to the most interesting authentication related bits o
 As it is standard practice for ASP.NET Core Web APIs, the token validation functionality is implemented with the JWT Bearer middleware. Here there's a relevant snippet from the middleware initialization:  
 
 ```csharp
-  app.UseJwtBearerAuthentication(new JwtBearerOptions
+  services.AddAuthentication(options =>
+  { 
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; 
+  })
+  .AddJwtBearer(jwtOptions =>
   {
-      Authority = string.Format("https://login.microsoftonline.com/tfp/{0}/{1}/v2.0/", 
-          Configuration["Authentication:AzureAd:Tenant"], Configuration["Authentication:AzureAd:Policy"]),
-      Audience = Configuration["Authentication:AzureAd:ClientId"],
-      Events = new JwtBearerEvents
-      {
-          OnAuthenticationFailed = AuthenticationFailed
-      }            
+    jwtOptions.Authority = $"https://login.microsoftonline.com/tfp/{Configuration["AzureAdB2C:Tenant"]}/{Configuration["AzureAdB2C:Policy"]}/v2.0/";
+    jwtOptions.Audience = Configuration["AzureAdB2C:ClientId"];
+    jwtOptions.Events = new JwtBearerEvents
+    {
+      OnAuthenticationFailed = AuthenticationFailed
+    };
   });
 ```
 Important things to notice:
@@ -94,7 +97,7 @@ You can access codes via:
 
 ```csharp
   var scopes = HttpContext.User.FindFirst("http://schemas.microsoft.com/identity/claims/scope")?.Value;
-  if (scopes != null && scopes.Split(' ').Any(s => s.Equals(TheScope)))
+  if (!string.IsNullOrEmpty(TheScope) && scopes != null && scopes.Split(' ').Any(s => s.Equals(TheScope)))
       // Do stuff
   else 
       // Unauthorized
