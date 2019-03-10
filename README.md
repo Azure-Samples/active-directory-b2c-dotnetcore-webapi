@@ -54,7 +54,7 @@ Your web API registration should include the following information:
 1. Open the solution in Visual Studio.
 1. Open the `appsettings.json` file.
 1. Find the assignment for `Tenant` and replace the value with your tenant name.
-1. Find the assignment for `ClientID` and replace the value with the Application ID from Step 4.
+1. Find the assignment for `Audience` and replace the value with the Application ID from Step 4.
 1. Find the assignment for `Policy` and replace the value with the name of the policy from Step 3.
 
 ### Step 6: Run the sample
@@ -76,7 +76,7 @@ As it is standard practice for ASP.NET Core Web APIs, the token validation funct
   .AddJwtBearer(jwtOptions =>
   {
     jwtOptions.Authority = $"https://login.microsoftonline.com/tfp/{Configuration["AzureAdB2C:Tenant"]}/{Configuration["AzureAdB2C:Policy"]}/v2.0/";
-    jwtOptions.Audience = Configuration["AzureAdB2C:ClientId"];
+    jwtOptions.Audience = Configuration["AzureAdB2C:Audience"];
     jwtOptions.Events = new JwtBearerEvents
     {
       OnAuthenticationFailed = AuthenticationFailed
