@@ -44,7 +44,7 @@ You will need to [register your Web API with Azure AD B2C](https://docs.microsof
 Your web API registration should include the following information:
 
 - Enable the **Web App/Web API** setting for your application.
-- Enter any **Reply URL**, as indicated previously, because the web API only does token validation and does not obtain tokens, this isn't really required. For example `https://myapi`.
+- Enter any **Reply URL**, as indicated previously, because the web API only does token validation and does not obtain token. To get this sample to work, you will want to use the reply url : `https://jwt.ms`.
 - Make sure you also provide a **AppID URI**, for example `demoapi`, this is used to construct the scopes that are configured in you single page application's code.
 - (Optional) Once you're app is created, open the app's **Published Scopes** blade and add any extra scopes you want.
 - Copy the **Application ID** generated for your application and **Published Scopes values**, so you can input them in your application's code.
@@ -56,6 +56,7 @@ Your web API registration should include the following information:
 1. Find the assignment for `Tenant` and replace the value with your tenant name.
 1. Find the assignment for `ClientID` and replace the value with the Application ID from Step 4.
 1. Find the assignment for `Policy` and replace the value with the name of the policy from Step 3.
+1. Modify the `Index.cshtml` file's url with your b2c tenant, policy name, client id, and scope.
 
 ### Step 6: Run the sample
 
