@@ -53,10 +53,22 @@ Your web API registration should include the following information:
 
 1. Open the solution in Visual Studio.
 1. Open the `appsettings.json` file.
-1. Find the assignment for `Tenant` and replace the value with your tenant name.
-1. Find the assignment for `ClientID` and replace the value with the Application ID from Step 4.
-1. Find the assignment for `Policy` and replace the value with the name of the policy from Step 3.
-1. Modify the `Index.cshtml` file's url with your b2c tenant, policy name, client id, and scope.
+
+(1) Find the assignment for `Tenant` and replace the value with your tenant name.
+  
+(2) Find the assignment for `ClientID` and replace the value with the Application ID from Step 4.
+  
+(3) Find the assignment for `Policy` and replace the value with the name of the policy from Step 3.
+  
+3. Open the `Index.cshtml` file in the views folder. Find the url in this file at location : https://github.com/FrankHu-MSFT/active-directory-b2c-dotnetcore-webapi/blob/master/B2C-WebApi/Views/Home/Index.cshtml#L8
+
+(1) Find the assignment for `Tenant` and replace the value with your tenant name.
+  
+(2) Find the assignment for `ClientID` and replace the value with the Application ID from Step 4.
+  
+(3) Find the assignment for `Policy` and replace the value with the name of the policy from Step 3.
+  
+(4) Find the assignment for `Scope` and replace the value with the name of the policy from Step 3.
 
 ### Step 6: Run the sample
 
