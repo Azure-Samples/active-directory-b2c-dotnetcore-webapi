@@ -1,10 +1,17 @@
 ---
-services: active-directory-b2c
-platforms: dotnet
-author: dstrockis
+page_type: sample
+languages:
+  - csharp
+products:
+  - azure
+  - azure-active-directory
+  - aspnet
+  - dotnet
+description: "This sample shows how to build a web API with Azure AD B2C using the ASP.Net Core JWT Bearer middleware."
 ---
 
-# An ASP.NET Core 2.0 web API with Azure AD B2C 
+# An ASP.NET Core 2.0 web API with Azure AD B2C
+
 This sample shows how to build a web API with Azure AD B2C using the ASP.Net Core JWT Bearer middleware.  It assumes you have some familiarity with Azure AD B2C.  If you'd like to learn all that B2C has to offer, start with our documentation at [aka.ms/aadb2c](http://aka.ms/aadb2c). 
 
 The app is a simple web API that exposes standard CRUD operations via /api/Values through standard GET, PUT, POST and  DELETE.
