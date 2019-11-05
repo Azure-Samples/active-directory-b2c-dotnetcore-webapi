@@ -49,12 +49,16 @@ If you already have an existing policy in your Azure AD B2C tenant, feel free to
 You will need to [register your Web API with Azure AD B2C](https://docs.microsoft.com/azure/active-directory-b2c/active-directory-b2c-app-registration#register-a-web-api) and define the scopes that client applications can request access tokens for. 
 
 Your web API registration should include the following information:
+| Configuration           | Value                                                             |
+|-------------------------|-------------------------------------------------------------------|
+| Application Name        | my_b2c_app                                                        |
+| Supported account types | Accounts in any organizational directory or any identity provider |
+| Redirect URI            | https://myapi                                                     |
+| Permissions             | Grant admin consent to openid and offline_access permissions      |
 
-- Enable the **Web App/Web API** setting for your application.
-- Enter any **Reply URL**, as indicated previously, because the web API only does token validation and does not obtain tokens, this isn't really required. For example `https://myapi`.
-- Make sure you also provide a **AppID URI**, for example `demoapi`, this is used to construct the scopes that are configured in you single page application's code.
-- (Optional) Once you're app is created, open the app's **Published Scopes** blade and add any extra scopes you want.
-- Copy the **Application ID** generated for your application and **Published Scopes values**, so you can input them in your application's code.
+* Copy the `Application ID` field and save it somewhere. This value is the clientID of your web api. 
+* (Optional) Once you're app is created, additional scopes may be configured under **Expose an API** 
+* Record any **Published Scopes values**, so you can input them in your application's code.
 
 ### [OPTIONAL] Step 5: Configure the sample with your app coordinates
 
