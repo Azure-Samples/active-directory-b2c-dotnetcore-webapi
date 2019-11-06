@@ -49,6 +49,7 @@ If you already have an existing policy in your Azure AD B2C tenant, feel free to
 You will need to [register your Web API with Azure AD B2C](https://docs.microsoft.com/azure/active-directory-b2c/active-directory-b2c-app-registration#register-a-web-api) and define the scopes that client applications can request access tokens for. 
 
 Your web API registration should include the following information:
+
 | Configuration           | Value                                                             |
 |-------------------------|-------------------------------------------------------------------|
 | Application Name        | my_b2c_app                                                        |
